@@ -16,3 +16,8 @@
 """
 
 mac = "AAAA:BBBB:CCCC"
+mac = mac.split(':')
+mac = ''.join(mac)
+mac = bin(int(mac, 16))
+mac = mac.lstrip('0b')
+print(mac)
