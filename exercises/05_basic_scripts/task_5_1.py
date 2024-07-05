@@ -48,4 +48,4 @@ london_co = {
 }
 
 temp = input('Введите названия устройства r1, r2 или sw1: ')
-print(london_co['r1'])
+print(london_co[temp])
