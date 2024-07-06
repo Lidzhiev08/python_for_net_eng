@@ -52,5 +52,5 @@ london_co = {
 }
 
 device = input('Enter name of device: ')
-character = input('Entere name of character: ')
+character = input('Entere name of character (' + ', '.join(london_co[device].keys()) + '): ')
 print(london_co[device][character])
