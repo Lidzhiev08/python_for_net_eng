@@ -30,3 +30,25 @@ Out[1]: '11111111111111111111111111110000'
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+ip = input('Enter IP address (in format 192.168.0.1/24): ')
+ip = ip.split('/')
+net = ip[0].split('.')
+mask = '1' * int(ip[1]) + '0' * (32 - int(ip[1]))
+
+temp_net = '''
+Network:
+{0:<10} {1:<10} {2:<10} {3:<10}
+{0:<10b} {1:<10b} {2:<10b} {3:<10b}
+'''
+
+temp_mask = '''
+Mask {4:10}
+{5:<10} {6:<10} {7:<10} {8:<10}
+{0:10} {1:10} {2:10} {3:10}
+'''
+
+print(mask)
+print(temp_net.format(int(net[0]), int(net[1]), int(net[2]), int(net[3])))
+print(temp_mask.format(mask[0:8], mask[8:16], mask[16:24], mask[24:32], ip[1], int(mask[0:8], 2),
+                       int(mask[8:16], 2), int(mask[16:24], 2), int(mask[24:32], 2)))
