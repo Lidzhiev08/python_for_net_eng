@@ -72,7 +72,6 @@ Mask {4:10}
 '''
 
 print(ip_host_bin, ', type of data: ', type(ip_host_bin))
-print(ip_net)
 print(temp_net.format(int(net[0]), int(net[1]), int(net[2]), int(net[3])))
 print(temp_mask.format(mask[0:8], mask[8:16], mask[16:24], mask[24:32], ip[1], int(mask[0:8], 2),
                        int(mask[8:16], 2), int(mask[16:24], 2), int(mask[24:32], 2)))
