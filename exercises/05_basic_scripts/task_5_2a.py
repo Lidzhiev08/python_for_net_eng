@@ -50,28 +50,30 @@ bin_ip = "00001010000000010000000111000011"
 
 """
 
+#192.168.217.145/24
 ip = input('Enter IP network (in format 10.1.1.0/24): ')
 ip = ip.split('/')
 net = ip[0].split('.')
 mask = '1' * int(ip[1]) + '0' * (32 - int(ip[1]))
 
-temp_net_for_bin = ip[0].split('.')
-ip_host_bin = (bin(int(temp_net_for_bin[0])).lstrip('0b') + bin(int(temp_net_for_bin[1])).lstrip('0b')
-               + bin(int(temp_net_for_bin[2])).lstrip('0b') + bin(int(temp_net_for_bin[3])).lstrip('0b'))
+bin_ip_host = '{:8b}{:8b}{:8b}{:8b}'.format(int(net[0]), int(net[1]), int(net[2]), int(net[3]))
+bin_ip_net = str(bin_ip_host[0:int(ip[1])]) + '0' * (32 - int(ip[1]))
 
 temp_net = '''
 Network:
 {0:<10} {1:<10} {2:<10} {3:<10}
-{0:<10b} {1:<10b} {2:<10b} {3:<10b}
+{4:<10} {5:<10} {6:<10} {7:<10}
 '''
 
 temp_mask = '''
-Mask {4:10}
+Mask: {4:10}
 {5:<10} {6:<10} {7:<10} {8:<10}
 {0:10} {1:10} {2:10} {3:10}
 '''
+print(bin_ip_net)
+print(temp_net.format(int(bin_ip_net[0:8], 2), int(bin_ip_net[8:16], 2), int(bin_ip_net[16:24], 2), int(bin_ip_net[24:32], 2),
+                      bin_ip_net[0:8], bin_ip_net[8:16], bin_ip_net[16:24], bin_ip_net[24:32]))
 
-print(ip_host_bin, ', type of data: ', type(ip_host_bin))
-print(temp_net.format(int(net[0]), int(net[1]), int(net[2]), int(net[3])))
-print(temp_mask.format(mask[0:8], mask[8:16], mask[16:24], mask[24:32], ip[1], int(mask[0:8], 2),
-                       int(mask[8:16], 2), int(mask[16:24], 2), int(mask[24:32], 2)))
+print(temp_mask.format(mask[0:8], mask[8:16], mask[16:24], mask[24:32],
+                       ip[1],
+                       int(mask[0:8], 2), int(mask[8:16], 2), int(mask[16:24], 2), int(mask[24:32], 2)))
