@@ -70,7 +70,7 @@ Mask: {4:10}
 {5:<10} {6:<10} {7:<10} {8:<10}
 {0:10} {1:10} {2:10} {3:10}
 '''
-print(bin_ip_net)
+
 print(temp_net.format(int(bin_ip_net[0:8], 2), int(bin_ip_net[8:16], 2), int(bin_ip_net[16:24], 2), int(bin_ip_net[24:32], 2),
                       bin_ip_net[0:8], bin_ip_net[8:16], bin_ip_net[16:24], bin_ip_net[24:32]))
 
