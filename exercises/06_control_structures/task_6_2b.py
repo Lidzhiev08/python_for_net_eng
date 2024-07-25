@@ -26,7 +26,7 @@ while not bool_var:
         elif int(counter) < 0:
             print('Error. Out of range, negative numbers.')
             break
-        elif int(counter) >= 255:
+        elif int(counter) > 255:
             print('Error. Out of range, too much.')
             break
         elif len(octs) != 4:
