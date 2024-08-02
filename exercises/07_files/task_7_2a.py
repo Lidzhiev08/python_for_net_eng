@@ -17,3 +17,14 @@
 """
 
 ignore = ["duplex", "alias", "configuration"]
+
+config_file = input('Enter name of config file: ')
+
+with open(config_file) as f:
+    for line in f:
+        for var in ignore:
+            if var in line:
+                mark = 1
+        if not line.startswith('!') and not mark == 1:
+            print(line.rstrip())
+        mark = 0
