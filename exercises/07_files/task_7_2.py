@@ -39,3 +39,12 @@ interface Ethernet0/3
 ...
 
 """
+
+config_file = input('Enter name of config file: ')
+
+with open(config_file) as f:
+    for line in f:
+        if line.startswith('!'):
+            continue
+        else:
+            print(line.rstrip())
