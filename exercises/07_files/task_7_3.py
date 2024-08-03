@@ -20,3 +20,12 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+
+enter_file = input('Enter name of file: ')
+
+with open(enter_file) as f:
+    for line in f:
+        line = line.split()
+        for var in line:
+            if var.isdigit():
+                print(f'{line[0]:<8} {line[1]:<20} {line[3]:<}')
