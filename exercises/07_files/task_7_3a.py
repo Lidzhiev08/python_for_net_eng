@@ -38,5 +38,21 @@
 список списков выше.
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
-
+CAM_table.txt
 """
+
+enter_file = input('Enter name of file: ')
+
+list_of_lists = []
+
+with open(enter_file) as f:
+    for line in f:
+        line = line.split()
+        for var in line:
+            if var.isdigit():
+                list_of_lists.append(line)
+    for count in list_of_lists:
+        count[0] = int(count[0])
+    list_of_lists.sort()
+    for index in list_of_lists:
+        print(f'{index[0]:<8}{index[1]:<20}{index[3]:<}')
