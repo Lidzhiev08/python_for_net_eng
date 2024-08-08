@@ -23,3 +23,21 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+def get_int_vlan_map(filename):
+    access_dict = {}
+    trunk_dict = {}
+    with open(filename) as f:
+        for line in f:
+            if 'interface' in line:
+                intf = line.split()[-1]
+            if 'trunk allowed' in line:
+                trunk_dict[intf] = line.split()[-1]
+            elif 'access' in line:
+                access_dict[intf] = line.split()[-1]
+    result = (access_dict, trunk_dict)
+    return result
+
+file_config = input('Enter file name: ')
+res = get_int_vlan_map(file_config)
+print(res)
