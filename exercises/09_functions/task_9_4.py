@@ -66,7 +66,7 @@ def ignore_command(command, ignore):
             ignore_status = True
     return ignore_status
 
-def convert_config_to_dict(filename):
+def convert_config_to_dict(config_filename):
     '''
     Функция создает и возвращает словарь, ключи которого - команда,
     а его значение - подкоманда(ы), если она(и) есть.
