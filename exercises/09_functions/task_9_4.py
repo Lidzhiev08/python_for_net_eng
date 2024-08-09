@@ -47,6 +47,7 @@
 
 ignore = ["duplex", "alias", "configuration"]
 
+from pprint import *
 
 def ignore_command(command, ignore):
     """
@@ -64,3 +65,31 @@ def ignore_command(command, ignore):
         if word in command:
             ignore_status = True
     return ignore_status
+
+def convert_config_to_dict(filename):
+    '''
+    Функция создает и возвращает словарь, ключи которого - команда,
+    а его значение - подкоманда(ы), если она(и) есть.
+    config_sw1.txt
+    '''
+    result = {}
+    list_command = []
+    with open(filename) as f:
+        for line in f:
+            ignore_flag = ignore_command(line, ignore)
+            if ignore_flag == True or line.startswith('!') or line == '\n':
+                continue
+            else:
+                if not line.startswith(' '):
+                    result.setdefault(line.strip(), [])
+                    key_word = line.strip()
+                    list_command = []
+                elif line.startswith(' '):
+                    list_command.append(line.strip())
+                    result[key_word] = list_command
+    return result
+
+config_file = 'config_sw1.txt'
+#input('Enter file: ')
+res = convert_config_to_dict(config_file)
+print(res)
