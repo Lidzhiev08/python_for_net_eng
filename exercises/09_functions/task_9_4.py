@@ -89,7 +89,6 @@ def convert_config_to_dict(filename):
                     result[key_word] = list_command
     return result
 
-config_file = 'config_sw1.txt'
-#input('Enter file: ')
+config_file = input('Enter file: ')
 res = convert_config_to_dict(config_file)
 print(res)
