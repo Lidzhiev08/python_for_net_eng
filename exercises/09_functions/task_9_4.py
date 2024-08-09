@@ -74,7 +74,7 @@ def convert_config_to_dict(config_filename):
     '''
     result = {}
     list_command = []
-    with open(filename) as f:
+    with open(config_filename) as f:
         for line in f:
             ignore_flag = ignore_command(line, ignore)
             if ignore_flag == True or line.startswith('!') or line == '\n':
