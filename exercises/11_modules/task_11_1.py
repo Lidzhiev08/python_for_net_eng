@@ -43,8 +43,60 @@ def parse_cdp_neighbors(command_output):
     и с файлами и с выводом с оборудования.
     Плюс учимся работать с таким выводом.
     """
+    result = {}
+    device = command_output.split('>')[0]
+    device = device.strip('\n')
+    list_of_pieces = command_output.split('\n')                  #разбиваем вывод команды на строки
+    list_of_pieces = [var.strip() for var in list_of_pieces]     #убираем пробелы и отступы в строках
+    list_keys = []                                               #список ключей для словаря
+    list_values = []
+    flag = 1
+    for line in list_of_pieces:
+        if flag < 4:
+            flag += 1
+            continue
+        else:
+            '''##########################################''' #ключи словаря
+            if line == '':
+                break
+            temp = []     # <- вспомогательные списки
+            temp_2 = []   # <-|
+            key_dict = []
+            value_dict = []
+            key_dict.append(device)
+            temp.append(line.split()[1])
+            temp.append(line.split()[2])
+            local_intf = ''.join(temp)
+            key_dict.append(local_intf)
+            list_keys.append(key_dict)
 
+            '''#########################################''' #значения словаря
+            value_dict.append(line.split()[0])     #добавление устройств, подключенных к sw1
+            temp_2.append(line.split()[-2])
+            temp_2.append(line.split()[-1])
+            port_id = ''.join(temp_2)
+            value_dict.append(port_id)
+            list_values.append(value_dict)
+            flag += 1
+
+    list_keys = [tuple(key) for key in list_keys]
+    list_values = [tuple(value) for value in list_values]
+    result = dict(zip(list_keys, list_values))
+    return result
 
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
-        print(parse_cdp_neighbors(f.read()))
+    with open("sh_cdp_n_sw1.txt") as f, open("new_sh_cdp_n_sw1.txt", 'w+') as nsf:
+        for line in f:
+            if line == '\n':
+                continue
+            else:
+                nsf.write(line)
+        print(parse_cdp_neighbors(nsf.read()))
+
+    with open("sh_cdp_n_r3.txt") as f, open("new_sh_cdp_n_r3.txt", 'w+') as nrf:
+        for line in f:
+            if line == '\n':
+                continue
+            else:
+                nrf.write(line)
+        print(parse_cdp_neighbors(nrf.read()))
