@@ -74,9 +74,29 @@
 
 """
 
+import draw_network_graph as draw
+import task_11_2 as t
+import pprint as p
+
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+def unique_network_map(topology_dict):
+    keys = list(topology_dict.keys())
+    values = list(topology_dict.values())
+    for key in keys:
+        for value in values:
+            if key == value:
+                values.remove(topology_dict[key])
+                del topology_dict[key]
+    return topology_dict
+
+if __name__ == '__main__':
+    topology = t.create_network_map(infiles)
+    draw.draw_topology(topology, output_filename='number_1.svg')
+    new_dict = unique_network_map(topology)
+    draw.draw_topology(new_dict, output_filename='number_2.svg')
