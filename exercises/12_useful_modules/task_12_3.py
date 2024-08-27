@@ -18,3 +18,17 @@ Reachable    Unreachable
              10.1.1.9
 
 """
+import tabulate as tb
+import ipaddress as ia
+from task_12_1 import ping_ip_addresses
+
+def print_ip_table(en_list, disen_list):
+    result = {}
+    result['Reachable'] = en_list
+    result['Unreachable'] = disen_list
+    return print(tb.tabulate(result, headers='keys'))
+
+if __name__ == '__main__':
+    en_list = ['10.1.1.1', '10.1.1.2']
+    disen_list = ['10.1.1.7', '10.1.1.8', '10.1.1.9']
+    print_ip_table(en_list, disen_list)
