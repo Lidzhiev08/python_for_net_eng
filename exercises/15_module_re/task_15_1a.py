@@ -27,16 +27,27 @@
 
 import re
 def get_ip_from_cfg(filename):
-    list_tuple = []
+    res_dict = {}
+    list_keys = []
+    list_values = []
+    regex_intf = (r'interface (?P<intf>\S+)')
     regex = (r'ip address (?P<ip_addr>(\d+\.)+\S+) (?P<mask>(\d+\.)+\S+)')
     with open(filename) as f:
         for line in f:
+            match_intf = re.search(regex_intf, line)
+            if match_intf:
+                list_keys.append(match_intf.group('intf'))
+                continue
             match = re.search(regex, line)
             if match:
                 temp_tuple = (match.group('ip_addr'), match.group('mask'))
-                list_tuple.append(temp_tuple)
+                list_values.append(temp_tuple)
                 temp_tuple = []
-    return list_tuple
+                continue
+            if 'no ip address' in line or 'ip unnumbered' in line:
+                del_elem = list_keys.pop()
+            res_dict = dict(zip(list_keys, list_values))
+    return res_dict
 
 if __name__ == '__main__':
     test_list = get_ip_from_cfg('config_r1.txt')
