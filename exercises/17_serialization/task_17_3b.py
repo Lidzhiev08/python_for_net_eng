@@ -43,3 +43,30 @@
 > pip install graphviz
 
 """
+
+import yaml
+import graphviz as gv
+import pprint as pp
+
+def transform_topology(filename):
+    '''
+    преобрзует формат из файла YAML для функции draw_topology, удаляет повторения
+    '''
+    result = {}
+    hosts = []
+    connected_devices = []
+    with open(filename) as f:
+        in_dict = yaml.safe_load(f) #входной словарь
+        for host, host_intf in in_dict.items():
+            for intf, device in host_intf.items():
+                temp_tuple = (host, intf)
+                hosts.append(temp_tuple)
+                for connected_device, intf_device in device.items():
+                    temp_tuple_device = (connected_device, intf_device)
+                    connected_devices.append(temp_tuple_device)
+        result = dict(zip(hosts, connected_devices))
+    return result
+
+if __name__ == '__main__':
+    res = transform_topology('17_serialization/topology.yaml')
+    pp.pprint(res)
