@@ -42,6 +42,9 @@ C-3PO,c3po@gmail.com,16/12/2019 17:24
 """
 
 import datetime
+import csv
+import re
+import pprint
 
 
 def convert_str_to_datetime(datetime_str):
@@ -56,3 +59,13 @@ def convert_datetime_to_str(datetime_obj):
     Конвертирует строку с датой в формате 11/10/2019 14:05 в объект datetime.
     """
     return datetime.datetime.strftime(datetime_obj, "%d/%m/%Y %H:%M")
+
+def write_last_log_to_csv(source_log, output):
+    lists = []
+    regex = r''
+    with open(source_log) as f:
+        reader = csv.reader(f)
+        for row in reader:
+            temp_row = row
+            
+            lists.append(row)
